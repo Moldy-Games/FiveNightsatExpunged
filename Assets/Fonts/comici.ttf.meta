@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: ec7f8f919ec54fc47b297e62becb3b1f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Comic Sans MS
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 40c601e67f5d0a44180ce21f9a3b4c8a, type: 3}
+  - {fileID: 12800000, guid: 9335270e16106e746b45f697e3a86b21, type: 3}
+  - {fileID: 12800000, guid: f66837b45de083841bd9faec10925003, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
