@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class Monitor : Powered
 {
-    public Animator camFlipAnimator;
-    public bool camerasOpen;
+    public Animator camFlipAnimator, staticAnimation;
+    public bool camerasOpen, uiOpen;
     public Button camButton;
 
     public GameObject error, camUI;
     public int currentCam;
     public Camera currentCamera;
+
+    public AudioSource flip;
     public override void OnOutage()
     {
         camButton.interactable = false;
@@ -37,26 +39,27 @@ public class Monitor : Powered
     {
         if(camerasOpen)
         {
-            camFlipAnimator.SetBool("open", true);
+            camFlipAnimator.SetTrigger("open");
+            flip.Play();
             yield return new WaitForSeconds(0.15f);
             camFlipAnimator.SetBool("open", false);
             PowerManager.Instance.UsePower(this);
             yield return new WaitForSeconds(0.25f);
             camUI.SetActive(true);
+            uiOpen = true;
         }
         else if(!camerasOpen)
         {
             camUI.SetActive(false);
-            camFlipAnimator.SetBool("close", true);
+            uiOpen = false;
+            flip.Play();
+            camFlipAnimator.SetTrigger("close");
             yield return new WaitForSeconds(0.15f);
-            camFlipAnimator.SetBool("close", false);
             PowerManager.Instance.ReleasePower(this);
         }
     }
-    public IEnumerator ShowError()
+    public void ShowError()
     {
-        error.SetActive(true);
-        yield return new WaitForSeconds(Random.Range(0.5f, 1f));
-        error.SetActive(false);
+        staticAnimation.SetTrigger("transition");
     }
 }

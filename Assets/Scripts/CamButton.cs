@@ -10,10 +10,12 @@ public class CamButton : MonoBehaviour
     public RawImage camImage;
     public Monitor monitor;
     public Camera associatedCam;
+    public Animator staticThingy;
     public void SwitchCam()
     {
         camImage.texture = cam;
         monitor.currentCam = camNumber;
         monitor.currentCamera = associatedCam;
+        staticThingy.SetTrigger("cameraSwitch");
     }
 }

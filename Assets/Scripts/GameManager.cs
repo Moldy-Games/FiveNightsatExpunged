@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour
     int transitions = 0;
     private int currentTransition = 0;
 
+    public GameObject bambom;
+    public Monitor monitorScript;
+    public Flashlight flashlight;
+    public Collider bambomCollision;
+
     void Start()
     {
         AISetup();
@@ -31,6 +36,18 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         TimeSet();
+        if(flashlight.flashlightEnabled && bambom.activeInHierarchy)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit, 50))
+            {
+                if(hit.collider == bambomCollision)
+                {
+                    bambom.SetActive(false);
+                }
+            }
+        }
     }
     public void AISetup()
     {
@@ -60,6 +77,19 @@ public class GameManager : MonoBehaviour
         {
             currentTransition++;
             AIManager.Instance.TransitionOccured();
+            DoTransitionStuff();
+        }
+    }
+    public void DoTransitionStuff()
+    {
+        if (monitorScript.camerasOpen)
+        {
+            monitorScript.ShowError();
+        }
+        int funnyBambom = UnityEngine.Random.Range(1, 10);
+        if(funnyBambom == 5)
+        {
+            bambom.SetActive(true);
         }
     }
 }

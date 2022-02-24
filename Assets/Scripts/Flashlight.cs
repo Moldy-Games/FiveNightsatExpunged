@@ -6,6 +6,7 @@ public class Flashlight : Powered
 {
     Light flashlight;
     AudioSource clicking;
+    public bool flashlightEnabled;
     public override void OnOutage()
     {
         flashlight.enabled = false;
@@ -25,12 +26,14 @@ public class Flashlight : Powered
                 flashlight.enabled = true;
                 clicking.Play();
                 PowerManager.Instance.UsePower(this);
+                flashlightEnabled = true;
             }
             else if (Input.GetKeyUp(KeyCode.Z))
             {
                 flashlight.enabled = false;
                 clicking.Play();
                 PowerManager.Instance.ReleasePower(this);
+                flashlightEnabled = false;
             }
         }
     }

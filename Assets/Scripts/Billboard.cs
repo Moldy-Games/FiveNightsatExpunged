@@ -12,11 +12,11 @@ public class Billboard : MonoBehaviour
     }
     void Update()
     {
-        if(!monitor.camerasOpen)
+        if(!monitor.uiOpen)
         {
             cam = Camera.main;
         }
-        else if(monitor.camerasOpen)
+        else if(monitor.uiOpen)
         {
             cam = monitor.currentCamera;
         }

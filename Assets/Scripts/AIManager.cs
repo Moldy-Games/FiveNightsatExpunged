@@ -9,8 +9,6 @@ public class AIManager : MonoBehaviour
     public Node[] nodes;
     public Character[] characters;
 
-    public Monitor monitorScript;
-
     private void Awake()
     {
         Instance = this;
@@ -21,10 +19,6 @@ public class AIManager : MonoBehaviour
         for (int i = 0; i < characters.Length; i++)
         {
             characters[i].Transition();
-        }
-        if(monitorScript.camerasOpen)
-        {
-            StartCoroutine(monitorScript.ShowError());
         }
     }
     void Start()
