@@ -7,7 +7,7 @@ using TMPro;
 [Serializable]
 public class GameManager : MonoBehaviour
 {
-    public TMP_Text timeText;
+    public TMP_Text timeText, nightText;
 
     public int startTime, endTime;
 
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         AISetup();
+        nightText.text = $"Night {PlayerPrefs.GetInt("Night")}";
     }
     void Update()
     {
