@@ -98,7 +98,6 @@ public class WinTime : MonoBehaviour
             coords[2] = new Vector2(0.5f, 0.75f - moveDist);
             coords[3] = new Vector2(0.5f, 0.5f - moveDist);
         }
-
         mesh.uv = coords;
     }
     private void Update()

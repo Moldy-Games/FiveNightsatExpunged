@@ -14,6 +14,8 @@ public class Monitor : Powered
     public Camera currentCamera;
 
     public AudioSource flip;
+
+    public List<GameObject> cameras = new List<GameObject>();
     public override void OnOutage()
     {
         camButton.interactable = false;
@@ -30,7 +32,10 @@ public class Monitor : Powered
     }
     void Update()
     {
-        
+        foreach (GameObject cam in cameras)
+        {
+            cam.SetActive(cam == currentCamera.gameObject);
+        }
     }
     public void CameraButton()
     {
