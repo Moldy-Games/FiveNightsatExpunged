@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorButton : Powered, Usable
 {
     public float doorHeight, doorSpeed, baseHeight;
-    protected bool doorInUse = false, doorOpen = true;
+    public bool doorInUse = false, doorOpen = true;
 
     public Transform door;
     IEnumerator OpenDoor()

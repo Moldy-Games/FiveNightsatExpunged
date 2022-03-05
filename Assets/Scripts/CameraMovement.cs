@@ -8,8 +8,11 @@ public class CameraMovement : MonoBehaviour
     private float rotationValue, rotValueClamped;
     void Update()
     {
-        rotationValue += cameraSpeed * Input.GetAxis("Mouse X");
-        rotValueClamped = Mathf.Clamp(rotationValue, -50f, 50f);
-        transform.eulerAngles = new Vector3(0, rotValueClamped, 0);
+        if(!FindObjectOfType<Monitor>().camerasOpen && !GameManager.Instance.GameOver)
+        {
+            rotationValue += cameraSpeed * Input.GetAxis("Mouse X");
+            rotValueClamped = Mathf.Clamp(rotationValue, -50f, 50f);
+            transform.eulerAngles = new Vector3(0, rotValueClamped, 0);
+        }
     }
 }

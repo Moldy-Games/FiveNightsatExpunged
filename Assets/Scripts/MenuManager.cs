@@ -13,22 +13,20 @@ public class MenuManager : MonoBehaviour
     public SpriteRenderer thingy;
 
     public TMP_Text nightText;
+    public Fade fadeThingy;
 
     private void Start()
     {
-        thingy.sprite = expungedSprites[Random.Range(0, expungedSprites.Length - 1)];
         nightText.text = $"(Night {PlayerPrefs.GetInt("Night")})";
     }
     public void NewGame()
     {
         PlayerPrefs.SetInt("Night", 1);
-        OpenMenu("Loading");
-        SceneManager.LoadScene("Game");
+        fadeThingy.FadeToLevel("Game");
     }
     public void Continue()
     {
-        OpenMenu("Loading");
-        SceneManager.LoadScene("Game");
+        fadeThingy.FadeToLevel("Game");
     }
     private void Update()
     {

@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class MainLight : Powered
 {
-    Light mainLight;
+    Light[] mainLight;
+    public GameObject ui;
     public override void OnOutage()
     {
-        mainLight.enabled = false;
+        for (int i = 0; i < mainLight.Length; i++)
+        {
+            mainLight[i].enabled = false;
+        }
         enabled = false;
     }
 
     void Start()
     {
-        mainLight = GetComponent<Light>();
+        mainLight = GetComponentsInChildren<Light>();
         PowerManager.Instance.UsePower(this);
     }
 }

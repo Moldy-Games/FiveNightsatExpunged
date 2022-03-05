@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Monitor : Powered
 {
     public Animator camFlipAnimator, staticAnimation;
-    public bool camerasOpen, uiOpen;
+    public bool camerasOpen, uiOpen, inTrans;
     public Button camButton;
 
     public GameObject error, camUI;
@@ -19,6 +19,8 @@ public class Monitor : Powered
         camButton.interactable = false;
         if (camerasOpen)
         {
+            camerasOpen = false;
+            StartCoroutine(CameraOpen());
             enabled = false;
         }
     }
@@ -32,30 +34,37 @@ public class Monitor : Powered
     }
     public void CameraButton()
     {
-        camerasOpen = !camerasOpen;
-        StartCoroutine(CameraOpen());
+        if(!inTrans && !FindObjectOfType<Flashlight>().flashlightEnabled)
+        {
+            camerasOpen = !camerasOpen;
+            StartCoroutine(CameraOpen());
+        }
     }
-    IEnumerator CameraOpen()
+    public IEnumerator CameraOpen()
     {
         if(camerasOpen)
         {
+            GameManager.Instance.brob.SetActive(false);
             camFlipAnimator.SetTrigger("open");
+            inTrans = true;
             flip.Play();
-            yield return new WaitForSeconds(0.15f);
-            camFlipAnimator.SetBool("open", false);
             PowerManager.Instance.UsePower(this);
             yield return new WaitForSeconds(0.25f);
             camUI.SetActive(true);
+            inTrans = false;
             uiOpen = true;
         }
         else if(!camerasOpen)
         {
+            GameManager.Instance.brobChance = Random.Range(1, 5000);
+            PowerManager.Instance.ReleasePower(this);
+            inTrans = true;
             camUI.SetActive(false);
             uiOpen = false;
             flip.Play();
             camFlipAnimator.SetTrigger("close");
-            yield return new WaitForSeconds(0.15f);
-            PowerManager.Instance.ReleasePower(this);
+            yield return new WaitForSeconds(0.25f);
+            inTrans = false;
         }
     }
     public void ShowError()

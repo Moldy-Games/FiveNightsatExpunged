@@ -23,7 +23,8 @@ public class Character : MonoBehaviour
         public bool weight;
         public Actions action;
     }
-    public Node startLocation;
+    public Node startLocation, gameOverLocation, leftDoorLocation, rightDoorLocation, inOfficeLocation;
+    public DoorButton leftDoor, rightDoor;
     [SerializeField] Node currentLocation;
 
     public CharacterNodeData[] nodeData;
@@ -41,27 +42,54 @@ public class Character : MonoBehaviour
     }
     public void Transition()
     {
-        Node[] outgoingNodes = currentLocation.nodes;
-
-        List<CharacterNodeData> validNodes = new List<CharacterNodeData>();
-
-        for (int i = 0; i < outgoingNodes.Length; i++)
+        if (currentLocation.name == leftDoorLocation.name && !leftDoor.doorOpen)
         {
-            CharacterNodeData temp = nodeNameToData[outgoingNodes[i].name];
-            if(temp.weight)
-            {
-                validNodes.Add(temp);
-            }
-        }
-
-        if(validNodes.Count > 0)
-        {
-            int travelToIndex = UnityEngine.Random.Range(0, validNodes.Count);
-
-            currentLocation = validNodes[travelToIndex].node;
-
+            currentLocation = startLocation;
             transform.position = currentLocation.transform.position;
             transform.rotation = currentLocation.transform.rotation;
+        }
+        else if(currentLocation.name == rightDoorLocation.name && !rightDoor.doorOpen)
+        {
+            currentLocation = startLocation;
+            transform.position = currentLocation.transform.position;
+            transform.rotation = currentLocation.transform.rotation;
+        }
+        else if (currentLocation.name == inOfficeLocation.name && FindObjectOfType<Monitor>().uiOpen)
+        {
+            currentLocation = startLocation;
+            transform.position = currentLocation.transform.position;
+            transform.rotation = currentLocation.transform.rotation;
+        }
+        else
+        {
+            Node[] outgoingNodes = currentLocation.nodes;
+
+            List<CharacterNodeData> validNodes = new List<CharacterNodeData>();
+
+            for (int i = 0; i < outgoingNodes.Length; i++)
+            {
+                CharacterNodeData temp = nodeNameToData[outgoingNodes[i].name];
+                if (temp.weight)
+                {
+                    validNodes.Add(temp);
+                }
+            }
+
+            if (validNodes.Count > 0)
+            {
+                int travelToIndex = UnityEngine.Random.Range(0, validNodes.Count);
+
+                currentLocation = validNodes[travelToIndex].node;
+
+                transform.position = currentLocation.transform.position;
+                transform.rotation = currentLocation.transform.rotation;
+
+                if (currentLocation.name == gameOverLocation.name)
+                {
+                    GameManager.Instance.characterWhoKill = gameObject.name;
+                    GameManager.Instance.GameOver = true;
+                }
+            }
         }
     }
 }

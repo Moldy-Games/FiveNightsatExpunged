@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Flashlight : Powered
 {
-    Light flashlight;
-    AudioSource clicking;
+    public Light flashlight;
+    public AudioSource clicking;
     public bool flashlightEnabled;
     public override void OnOutage()
     {
@@ -19,7 +19,7 @@ public class Flashlight : Powered
     }
     void Update()
     {
-        if(enabled)
+        if(enabled && !FindObjectOfType<Monitor>().camerasOpen)
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
