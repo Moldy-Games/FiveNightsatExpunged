@@ -6,7 +6,7 @@ using System.IO;
 public class CameraMovement : MonoBehaviour
 {
     public float cameraSpeed;
-    private float rotationValue, rotValueClamped;
+    private float yaw;
 
     private void Start()
     {
@@ -22,9 +22,9 @@ public class CameraMovement : MonoBehaviour
     {
         if(!FindObjectOfType<Monitor>().camerasOpen && !GameManager.Instance.GameOver)
         {
-            rotationValue += cameraSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
-            rotValueClamped = Mathf.Clamp(rotationValue, -65f, 65f);
-            transform.eulerAngles = new Vector3(0, rotValueClamped, 0);
+            yaw = Mathf.Clamp(yaw + cameraSpeed * Input.GetAxis("Mouse X"), -65f, 65f);
+            Vector3 direction = new Vector3(0, yaw, 0);
+            Camera.main.transform.rotation = Quaternion.Euler(direction);
         }
     }
 }

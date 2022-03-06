@@ -35,6 +35,10 @@ public class MenuManager : MonoBehaviour
             Application.Quit();
         }
     }
+    public void ChangeNight(int night)
+    {
+        PlayerPrefs.SetInt("Night", night);
+    }
     public void OpenMenu(string menuName)
     {
         for (int i = 0; i < menus.Length; i++)

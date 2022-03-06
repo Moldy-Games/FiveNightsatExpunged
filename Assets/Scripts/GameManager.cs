@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    public GameObject bambom, brob;
+    public GameObject bambom, brob, ringi;
     public Monitor monitorScript;
     public Flashlight flashlight;
     public Collider bambomCollision;
@@ -48,25 +48,34 @@ public class GameManager : MonoBehaviour
     public string characterWhoKill;
 
     public int brobChance;
+    public int difficulty;
 
-    public bool demoMode;
+    public bool demoMode, customNight;
+    public AudioSource phoneCallAudio;
+    public AudioClip[] calls;
     void Start()
     {
         Instance = this;
         GameOver = false;
-        if(!demoMode)
+        phoneCallAudio.clip = calls[PlayerPrefs.GetInt("Night") - 1];
+        phoneCallAudio.Play();
+        if(!customNight)
         {
-            minTransitions = UnityEngine.Random.Range(10, 15) * PlayerPrefs.GetInt("Night");
-            maxTransitions = UnityEngine.Random.Range(16, 23) * PlayerPrefs.GetInt("Night");
+            difficulty = PlayerPrefs.GetInt("Night");
+        }
+        if(!demoMode && PlayerPrefs.GetInt("Night") != 5)
+        {
+            minTransitions = UnityEngine.Random.Range(10, 15) * difficulty;
+            maxTransitions = UnityEngine.Random.Range(16, 23) * difficulty;
         }
         AISetup();
         if(PlayerPrefs.GetInt("Night") <= 5)
         {
             nightText.text = $"Night {PlayerPrefs.GetInt("Night")}";
         }
-        if(demoMode)
+        if(PlayerPrefs.GetInt("Night") <= 2)
         {
-            nightText.text = "Demo Night";
+            ringi.SetActive(false);
         }
     }
     void Update()
@@ -144,7 +153,7 @@ public class GameManager : MonoBehaviour
             monitorScript.ShowError();
         }
         int funnyBambom = UnityEngine.Random.Range(1, 10);
-        if(funnyBambom == 5)
+        if(funnyBambom == 5 && PlayerPrefs.GetInt("Night") != 5)
         {
             bambom.SetActive(true);
         }

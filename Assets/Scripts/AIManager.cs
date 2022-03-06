@@ -9,6 +9,8 @@ public class AIManager : MonoBehaviour
     public Node[] nodes;
     public Character[] characters;
 
+    public Character expunged;
+
     private void Awake()
     {
         Instance = this;
@@ -16,9 +18,16 @@ public class AIManager : MonoBehaviour
     public void TransitionOccured()
     {
         Debug.Log("Transition occured");
-        for (int i = 0; i < characters.Length; i++)
+        if(PlayerPrefs.GetInt("Night") != 5)
         {
-            characters[i].Transition();
+            for (int i = 0; i < characters.Length; i++)
+            {
+                characters[i].Transition();
+            }
+        }
+        else
+        {
+            expunged.Transition();
         }
     }
     void Start()

@@ -31,6 +31,14 @@ public class Character : MonoBehaviour
     public Dictionary<string, CharacterNodeData> nodeNameToData;
     void Start()
     {
+        if(PlayerPrefs.GetInt("Night") == 5 && gameObject.name != "Expunged")
+        {
+            gameObject.SetActive(false);
+        }
+        if(PlayerPrefs.GetInt("Night") != 5 && gameObject.name == "Expunged")
+        {
+            gameObject.SetActive(false);
+        }
         nodeNameToData = new Dictionary<string, CharacterNodeData>();
         for (int i = 0; i < nodeData.Length; i++)
         {
