@@ -31,11 +31,11 @@ public class Character : MonoBehaviour
     public Dictionary<string, CharacterNodeData> nodeNameToData;
     void Start()
     {
-        if(PlayerPrefs.GetInt("Night") == 5 && gameObject.name != "Expunged")
+        if(PlayerPrefs.GetInt("Night") == 5 && gameObject.name != "Expunged" && !GameManager.Instance.customNight)
         {
             gameObject.SetActive(false);
         }
-        if(PlayerPrefs.GetInt("Night") != 5 && gameObject.name == "Expunged")
+        if(PlayerPrefs.GetInt("Night") != 5 && gameObject.name == "Expunged" && !GameManager.Instance.customNight)
         {
             gameObject.SetActive(false);
         }
@@ -62,7 +62,7 @@ public class Character : MonoBehaviour
             transform.position = currentLocation.transform.position;
             transform.rotation = currentLocation.transform.rotation;
         }
-        else if (currentLocation.name == inOfficeLocation.name && FindObjectOfType<Monitor>().uiOpen)
+        else if (currentLocation.name == inOfficeLocation.name && !FindObjectOfType<Monitor>().uiOpen)
         {
             currentLocation = startLocation;
             transform.position = currentLocation.transform.position;

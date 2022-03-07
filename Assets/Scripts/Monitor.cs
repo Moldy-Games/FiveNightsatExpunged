@@ -39,7 +39,7 @@ public class Monitor : Powered
     }
     public void CameraButton()
     {
-        if(!inTrans && !FindObjectOfType<Flashlight>().flashlightEnabled)
+        if(!inTrans)
         {
             camerasOpen = !camerasOpen;
             StartCoroutine(CameraOpen());

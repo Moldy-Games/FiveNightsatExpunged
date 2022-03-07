@@ -8,40 +8,22 @@ using UnityEngine.SceneManagement;
 
 public class SettingsLoaderAndSaver : MonoBehaviour
 {
-    public static bool postProOn = false;
-    public static float mouseSens = 1;
+    public bool postProOn = false;
+    public float mouseSens = 1;
 
     [SerializeField] Slider mouseSensSlider;
     [SerializeField] Toggle postToggle;
 
-    private void Awake()
+    public void Start()
     {
-        if (!File.Exists(Path.Combine(Application.dataPath, "settings.dave")))
+        mouseSens = PlayerPrefs.GetFloat("MouseSens");
+        if(PlayerPrefs.GetInt("PostProcessing") == 0)
         {
-            using (var stream = File.Open(Application.dataPath + "/settings.dave", FileMode.Create))
-            {
-                using (var writer = new BinaryWriter(stream, Encoding.UTF8, false))
-                {
-                    writer.Write(true);
-                    writer.Write(100f);
-                }
-            }
+            postProOn = false;
         }
         else
         {
-            return;
-        }
-    }
-
-    public void Start()
-    {
-        using(var stream = File.Open(Application.dataPath + "/settings.dave", FileMode.Open))
-        {
-            using(var reader = new BinaryReader(stream, Encoding.UTF8, false))
-            {
-                postProOn = reader.ReadBoolean();
-                mouseSens = reader.ReadSingle();
-            }
+            postProOn = true;
         }
         mouseSensSlider.value = mouseSens;
         postToggle.isOn = postProOn;
@@ -55,13 +37,14 @@ public class SettingsLoaderAndSaver : MonoBehaviour
 
     public void SaveValues()
     {
-        using (var stream = File.Open(Application.dataPath + "/settings.dave", FileMode.Create))
+        if(postToggle.isOn)
         {
-            using (var writer = new BinaryWriter(stream, Encoding.UTF8, false))
-            {
-                writer.Write(postToggle.isOn);
-                writer.Write(mouseSensSlider.value);
-            }
+            PlayerPrefs.SetInt("PostProcessing", 1);
         }
+        else
+        {
+            PlayerPrefs.SetInt("PostProcessing", 0);
+        }
+        PlayerPrefs.SetFloat("MouseSens", mouseSens);
     }
 }

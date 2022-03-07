@@ -7,10 +7,13 @@ public class DoorButton : Powered, Usable
     public float doorHeight, doorSpeed, baseHeight;
     public bool doorInUse = false, doorOpen = true;
 
+    public AudioSource doorSound;
+
     public Transform door;
     IEnumerator OpenDoor()
     {
         PowerManager.Instance.ReleasePower(this);
+        doorSound.Play();
         for (float amount = 0; amount < doorHeight; amount += doorSpeed * Time.deltaTime)
         {
             door.position = new Vector3(door.position.x, amount + baseHeight, door.position.z);
@@ -23,6 +26,7 @@ public class DoorButton : Powered, Usable
     IEnumerator CloseDoor()
     {
         PowerManager.Instance.UsePower(this);
+        doorSound.Play();
         for (float amount = doorHeight; amount > 0; amount -= doorSpeed * Time.deltaTime)
         {
             door.position = new Vector3(door.position.x, amount + baseHeight, door.position.z);

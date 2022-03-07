@@ -2,21 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Text;
 
 public class CameraMovement : MonoBehaviour
 {
     public float cameraSpeed;
     private float yaw;
 
-    private void Start()
+    private void Awake()
     {
-        using(var stream = File.Open(Application.dataPath + "/settings.dave", FileMode.Open))
-        {
-            using(var reader = new BinaryReader(stream, System.Text.Encoding.UTF8, false))
-            {
-                cameraSpeed = reader.ReadSingle();
-            }
-        }
+        cameraSpeed = PlayerPrefs.GetFloat("MouseSens");
     }
     void Update()
     {
