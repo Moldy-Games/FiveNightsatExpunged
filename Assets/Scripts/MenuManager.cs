@@ -9,23 +9,37 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] Menu[] menus;
 
-    public Sprite[] expungedSprites;
-    public SpriteRenderer thingy;
-
     public TMP_Text nightText;
     public Fade fadeThingy;
+
+    public TMP_InputField difficulty;
+
+    public Animator newGame;
+    public GameObject customNightButton;
 
     private void Start()
     {
         nightText.text = $"(Night {PlayerPrefs.GetInt("Night")})";
+        if(PlayerPrefs.GetInt("GameComplete") == 1)
+        {
+            customNightButton.SetActive(true);
+        }
     }
     public void NewGame()
     {
         PlayerPrefs.SetInt("Night", 1);
-        fadeThingy.FadeToLevel("Game");
+        PlayerPrefs.SetInt("CustomNight", 0);
+        StartCoroutine(NewGameSequence());
     }
     public void Continue()
     {
+        PlayerPrefs.SetInt("CustomNight", 0);
+        fadeThingy.FadeToLevel("Game");
+    }
+    public void CustomNight()
+    {
+        PlayerPrefs.SetInt("CustomNight", 1);
+        PlayerPrefs.SetInt("Difficulty", int.Parse(difficulty.text));
         fadeThingy.FadeToLevel("Game");
     }
     private void Update()
@@ -34,10 +48,14 @@ public class MenuManager : MonoBehaviour
         {
             Application.Quit();
         }
-    }
-    public void ChangeNight(int night)
-    {
-        PlayerPrefs.SetInt("Night", night);
+        if(Input.GetKeyDown(KeyCode.Delete) && !fadeThingy.isFading)
+        {
+            PlayerPrefs.SetInt("Night", 1);
+            PlayerPrefs.SetFloat("MouseSens", 1);
+            PlayerPrefs.SetInt("PostProcessing", 1);
+            PlayerPrefs.SetInt("GameComplete", 0);
+            fadeThingy.FadeToLevel("Menu");
+        }
     }
     public void OpenMenu(string menuName)
     {
@@ -67,5 +85,11 @@ public class MenuManager : MonoBehaviour
     public void CloseMenu(Menu menu)
     {
         menu.Close();
+    }
+    IEnumerator NewGameSequence()
+    {
+        newGame.SetTrigger("newGame");
+        yield return new WaitForSeconds(6);
+        fadeThingy.FadeToLevel("Game");
     }
 }

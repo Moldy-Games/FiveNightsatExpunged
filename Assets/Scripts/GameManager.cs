@@ -53,17 +53,31 @@ public class GameManager : MonoBehaviour
     public bool demoMode, customNight;
     public AudioSource phoneCallAudio;
     public AudioClip[] calls;
+
+    public GameObject muteCallButton;
     void Start()
     {
+        if(PlayerPrefs.GetInt("CustomNight") == 1)
+        {
+            customNight = true;
+        }
+        else
+        {
+            customNight = false;
+        }
         Instance = this;
         GameOver = false;
-        phoneCallAudio.clip = calls[PlayerPrefs.GetInt("Night") - 1];
-        phoneCallAudio.Play();
         if(!customNight)
         {
             difficulty = PlayerPrefs.GetInt("Night");
+            phoneCallAudio.clip = calls[PlayerPrefs.GetInt("Night") - 1];
+            phoneCallAudio.Play();
         }
-        if(!demoMode && PlayerPrefs.GetInt("Night") != 5)
+        else
+        {
+            difficulty = PlayerPrefs.GetInt("Difficulty") / 3;
+        }
+        if(PlayerPrefs.GetInt("Night") != 5 || customNight)
         {
             minTransitions = UnityEngine.Random.Range(10, 15) * difficulty;
             maxTransitions = UnityEngine.Random.Range(16, 23) * difficulty;
@@ -73,7 +87,11 @@ public class GameManager : MonoBehaviour
         {
             nightText.text = $"Night {PlayerPrefs.GetInt("Night")}";
         }
-        if(PlayerPrefs.GetInt("Night") <= 2)
+        if(customNight)
+        {
+            nightText.text = "Custom Night";
+        }
+        if(PlayerPrefs.GetInt("Night") <= 2 && !customNight)
         {
             ringi.SetActive(false);
         }
@@ -83,6 +101,14 @@ public class GameManager : MonoBehaviour
         if(!GameOver)
         {
             TimeSet();
+        }
+        if(phoneCallAudio.isPlaying)
+        {
+            muteCallButton.SetActive(true);
+        }
+        else
+        {
+            muteCallButton.SetActive(false);
         }
         if(flashlight.flashlightEnabled && bambom.activeInHierarchy)
         {
@@ -153,7 +179,7 @@ public class GameManager : MonoBehaviour
             monitorScript.ShowError();
         }
         int funnyBambom = UnityEngine.Random.Range(1, 10);
-        if(funnyBambom == 5 && PlayerPrefs.GetInt("Night") != 5)
+        if(funnyBambom == 5 && PlayerPrefs.GetInt("Night") != 5 && PlayerPrefs.GetInt("Night") > 1)
         {
             bambom.SetActive(true);
         }
@@ -166,7 +192,7 @@ public class GameManager : MonoBehaviour
     {
         if(thing)
         {
-            if (monitorScript.camerasOpen)
+            if (monitorScript.camerasOpen || monitorScript.inTrans)
             {
                 monitorScript.camerasOpen = false;
                 StartCoroutine(monitorScript.CameraOpen());
@@ -176,6 +202,10 @@ public class GameManager : MonoBehaviour
             jumpscareAnimator.SetTrigger(characterWhoKill);
             StartCoroutine(JumpscareCoroutine());
         }
+    }
+    public void MuteCall()
+    {
+        phoneCallAudio.Stop();
     }
     IEnumerator JumpscareCoroutine()
     {

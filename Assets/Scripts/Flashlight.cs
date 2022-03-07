@@ -19,7 +19,7 @@ public class Flashlight : Powered
     }
     void Update()
     {
-        if(enabled && !FindObjectOfType<Monitor>().camerasOpen)
+        if(enabled)
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
