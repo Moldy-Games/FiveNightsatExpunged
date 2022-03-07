@@ -20,9 +20,9 @@ public class Win : MonoBehaviour
     }
     IEnumerator WinSequence()
     {
-        yield return new WaitForSeconds(2);
-        winTime.startWin = true;
-        yield return new WaitForSeconds(6);
+        /*yield return new WaitForSeconds(2);
+        winTime.startWin = true;*/
+        yield return new WaitForSeconds(8);
         fade.FadeToLevel("Menu");
     }
 }
