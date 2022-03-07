@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Win : MonoBehaviour
 {
-    public WinTime winTime;
     public Fade fade;
     void Start()
     {

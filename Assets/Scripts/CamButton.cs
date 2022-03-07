@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CamButton : MonoBehaviour
 {
@@ -11,11 +12,14 @@ public class CamButton : MonoBehaviour
     public Monitor monitor;
     public Camera associatedCam;
     public Animator staticThingy;
+    public TMP_Text camText;
+    public string camLocation;
     public void SwitchCam()
     {
         camImage.texture = cam;
         monitor.currentCam = camNumber;
         monitor.currentCamera = associatedCam;
-        staticThingy.SetTrigger("cameraSwitch");
+        camText.text = $"Cam {camNumber} - {camLocation}";
+        staticThingy.SetTrigger("cameraSwitch"); 
     }
 }

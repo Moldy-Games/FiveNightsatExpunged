@@ -7,7 +7,7 @@ public class CreditsScroll : MonoBehaviour
 {
     public Transform credits;
     public Fade fade;
-    bool scrolling = true;
+    [SerializeField] bool scrolling = true;
     public Vector3 thing;
     IEnumerator Scroll()
     {
@@ -17,10 +17,10 @@ public class CreditsScroll : MonoBehaviour
     }
     private void Update()
     {
-        if(thing.y < 1800)
+        if(thing.y < 3000)
         {
             thing = credits.position;
-            thing.y += 100f * Time.deltaTime;
+            thing.y += 40f * Time.deltaTime;
             credits.position = thing;
         }
         else

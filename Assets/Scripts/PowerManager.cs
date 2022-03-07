@@ -16,6 +16,8 @@ public class PowerManager : MonoBehaviour
     public TMP_Text powerText;
     public Slider usageMeter;
 
+    public bool powerOut;
+
     private void Awake()
     {
         Instance = this;
@@ -30,6 +32,7 @@ public class PowerManager : MonoBehaviour
         power -= powerDrain * Time.deltaTime;
         if(power <= 0)
         {
+            powerOut = true;
             power = 0;
             foreach(var poweredItem in poweredObjects)
             {

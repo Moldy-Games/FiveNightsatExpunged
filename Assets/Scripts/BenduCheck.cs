@@ -16,7 +16,7 @@ public class BenduCheck : MonoBehaviour
     {
         benduSprite = GetComponentInChildren<SpriteRenderer>();
         patience = 300 - (PlayerPrefs.GetInt("Night") * 25);
-        if(PlayerPrefs.GetInt("Night") > 1 && PlayerPrefs.GetInt("Night") != 5)
+        if(PlayerPrefs.GetInt("Night") > 1 && PlayerPrefs.GetInt("Night") != 5 || GameManager.Instance.customNight)
         {
             StartCoroutine(BenduSequence());
             inCove = true;
@@ -49,7 +49,7 @@ public class BenduCheck : MonoBehaviour
     {
         while(patience > 0)
         {
-            if(!monitor.camerasOpen && monitor.currentCam == 5)
+            if(!monitor.camerasOpen && monitor.currentCam == 5 && !PowerManager.Instance.powerOut)
             {
                 patience -= Time.deltaTime;
             }

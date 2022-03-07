@@ -407,6 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   credits: {fileID: 2001514349}
   fade: {fileID: 1818451652}
+  scrolling: 1
   thing: {x: 0, y: 0, z: 0}
 --- !u!114 &1785303209
 MonoBehaviour:
@@ -540,7 +541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -765.3362}
+  m_AnchoredPosition: {x: 0, y: -700}
   m_SizeDelta: {x: 1920, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2001514350
@@ -578,8 +579,12 @@ MonoBehaviour:
 
 
 
-    Lancey - Character
-    Art, Creator of Bandu
+    Cuzsie - Programming
+    Help
+
+
+
+    Lancey - Character Art, Creator of Bandu
 
 
 
@@ -587,8 +592,8 @@ MonoBehaviour:
 
 
 
-    Dragolii - Creator of
-    Ringi
+    Dragolii
+    - Creator of Ringi
 
 
 
@@ -596,26 +601,27 @@ MonoBehaviour:
 
 
 
-    Dan Wiki - Creator of Bendu
+    Dan Wiki - Creator
+    of Bendu
 
 
 
-    Rapparep
-    - Creator of Expunged
+    Rapparep - Creator of Expunged
 
 
 
-    Scott Cawthon - Original FNAF Concept + Sound Effects
+    Scott Cawthon - Original
+    FNAF Concept + Sound Effects
 
 
 
-    Cynda
-    - Bendu Cam Music
+    Cynda - Bendu Cam Music
 
 
 
 
-    And thanks to you for playing the game!'
+    And thanks
+    to you for playing the game!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

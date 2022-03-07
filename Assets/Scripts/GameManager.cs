@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            SceneManager.LoadScene("Menu");
         }
     }
     public void AISetup()

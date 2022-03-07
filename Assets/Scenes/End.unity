@@ -247,6 +247,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 77090305}
+  win: {fileID: 21300000, guid: 52d3763151f46af4db1ce1813abe3313, type: 3}
+  pinkSlip: {fileID: 21300000, guid: 19d7909268036a04cbf4235e056b403a, type: 3}
+  lol: {fileID: 91825765}
 --- !u!114 &349888608
 MonoBehaviour:
   m_ObjectHideFlags: 0
