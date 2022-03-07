@@ -24,10 +24,6 @@ public class MenuManager : MonoBehaviour
         {
             customNightButton.SetActive(true);
         }
-        if(PlayerPrefs.GetInt("MouseSens") == 0)
-        {
-            PlayerPrefs.SetInt("MouseSens", 1);
-        }
     }
     public void NewGame()
     {
